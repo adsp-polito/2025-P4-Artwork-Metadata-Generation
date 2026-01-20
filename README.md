@@ -211,7 +211,7 @@ Once a fine-tuned checkpoint is available, the model can be used to predict meta
 This implementation is described in detail in the following paper:
 
 > **“Automated Artwork Metadata Generation using Multimodal LLM”**  
-> *Andò S., Baldi F., Cozzone R.* (2025)
+> *Andò S., Baldi F., Cozzone R.* (2026)
 
 ---
 
