@@ -115,8 +115,9 @@ Finally, the performance of the best-performing model (1-Img-4Prompt R=16 D=0.05
 │   	├── 1-IMG-4-PROMPT/		   # Results of IMG-4-PROMPT
 │		├── MULTI-MODEL/		   # Results of MULTI-MODEL
 │		├── SINGLE-PROMPT/         # Results of SINGLE-PROMPT                  
-└── README.md					  # Project overview, instructions, and documentation
-└── LINKS-ArtAI.pdf               # Kick off project presentation
+├── README.md					   # Project overview, instructions, and documentation
+├── LINKS-ArtAI.pdf                # Project presentation Kick off
+└── Requirements.txt			   # libraries
 ```
 # Installation
 **Prerequisites**
