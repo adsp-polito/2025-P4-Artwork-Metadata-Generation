@@ -106,13 +106,17 @@ Finally, the performance of the best-performing model (1-Img-4Prompt R=16 D=0.05
 # Folder Structure
 ```
 .
-├── adsp_notebook_artLM.ipynb   # Main notebook with code, analysis, and results
-├── model_results/              # Output directory for all results
-│   ├── plots/                  # Generated plots and figures
-│   └── results_tables/         # Quantitative evaluation tables
-├── report/                     # Final project report and documentation
-├── Checkpoints/                # Presentation slides
-└── README.md                   # Project overview, instructions, and documentation
+├──Exam/
+│   ├──adsp_notebook_artLM.ipynb/  # Main notebook with code, analysis, and results
+│   ├──report.pdf/				   # Final project report and documentation
+│   ├──checkpoints/			       # Presentation slides
+├── Results/                       # Output directory for all results
+│   ├── Outputs/                   # Generated plots and figures
+│   	├── 1-IMG-4-PROMPT/		   # Results of IMG-4-PROMPT
+│		├── MULTI-MODEL/		   # Results of MULTI-MODEL
+│		├── SINGLE-PROMPT/         # Results of SINGLE-PROMPT                  
+└── README.md					  # Project overview, instructions, and documentation
+└── LINKS-ArtAI.pdf               # Kick off project presentation
 ```
 # Installation
 **Prerequisites**
