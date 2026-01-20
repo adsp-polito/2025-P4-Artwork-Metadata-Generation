@@ -20,7 +20,7 @@ The approach is designed to be **scalable, flexible, and deployable in resource-
 
 # Key features
 - **Multimodal Metadata Generation**  
-  Generates structured metadata directly from artwork images using state-of-the-art model Qwen-2-VL
+  Generates structured metadata directly from artwork images using Foundation Model QWEN2-VL-INSTRUCT
 
 - **Multi-Label & Open-Vocabulary Output**  
   Supports multiple valid labels per category without relying on closed label sets.
@@ -70,6 +70,14 @@ The dataset is constructed from **Wikidata**, an open-source structured knowledg
 
 The dataset enables realistic evaluation of large-scale cultural heritage metadata generation.
 
+# Folder Structure
 
 
-# Getting Started
+- **adsp_notebook_artLM.ipynb:** Main notebook with code, analysis, and results.
+- **model_results/:** Output directory for all results.
+- **report/:** Final project report and documentation.
+- **Checkpoints/:** Presentations slides.
+- **README.md:** Provides an overview of the project, instructions and documentation.
+
+
+
