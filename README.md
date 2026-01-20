@@ -43,6 +43,7 @@ The approach is designed to be **scalable, flexible, and deployable in resource-
 
 # How it works
 The framework formulates metadata extraction as a **conditional multimodal generation task**:
+
 **Core Steps:**
 1. **Vision Encoder**  
    Extracts visual tokens from artwork images.
@@ -70,25 +71,8 @@ The dataset is constructed from **Wikidata**, an open-source structured knowledg
 
 The dataset enables realistic evaluation of large-scale cultural heritage metadata generation.
 
-# Folder Structure
-```
-.
-├── adsp_notebook_artLM.ipynb   # Main notebook with code, analysis, and results
-├── model_results/              # Output directory for all results
-│   ├── plots/                  # Generated plots and figures
-│   └── results_tables/         # Quantitative evaluation tables
-├── report/                     # Final project report and documentation
-├── Checkpoints/                # Presentation slides
-└── README.md                   # Project overview, instructions, and documentation
-```
-# How to Use
-1. Open adsp_notebook_artLM.ipynb in Jupyter, VSCode or Colab.
-2. Place Dataset_ArtAI.csv in the same folder as the notebook.
-3. Run all cells in order. Results will be saved in model_results/ and displayed in the notebook.
-
 # Main Results
-The experiments used to validate the best-performing model were conducted using the **Single-Prompt** and **1Img4Prompt** strategies.  
-Multiple configurations were evaluated by varying the **LoRA rank** and **dropout values**, while applying a **learning rate scheduler** during training.
+The foundation model was selected between BLIP‑2 and Qwen by comparing their zero-shot performance, ultimately choosing Qwen as the base model. The best-performing setup was validated using the Single‑Prompt and 1‑Img‑4‑Prompt strategies, evaluated with the Exact Match metric. Several configurations were explored by varying LoRA rank and dropout, while also applying a learning rate scheduler during training.
 
 The table below reports a comparative analysis of the two prompting strategies for different Rank and Dropout configuration:
 | SINGLE-PROMPT   | Authors   | Genres | Materials | Subjects 
@@ -104,11 +88,102 @@ The table below reports a comparative analysis of the two prompting strategies f
 In both strategies, the best-performing configuration uses a **LoRA rank of 16** and a **dropout value of 0.05**.  
 For both strategies, the application of a **learning rate scheduler** leads to performance improvements.
 
-The table below reports the best configuration for each strategy using R=16, D=0.05 and the cosine scheduler:
+The table below reports the results of the best configuration for each strategy using R=16, D=0.05 and the cosine scheduler:
 | Strategy   | Authors    | Genres  | Materials | Subjects 
 |-----------------|-----------|---------|-----------|----------|
 | SINGLE-PROMPT   |  17,43%   | **75,97%**  |  67,43%   |   6,66%  |
 | 1IMG-4PROMPT    |  **18,28%**   | 75,68%  |  **69,59%**   |   **8,14%**  |
 
-Among the evaluated approaches, the 1IMG-4PROMPT strategy yields the best results.
+Among the evaluated approaches, the 1-IMG-4PROMPT strategy yields the best results.
+
+Finally, the performance of the best-performing model (1-Img-4Prompt R=16 D=0.05 with cosine scheduler) was compared against the **zero-shot baseline** and the **multi-modal model**, which was treated as an upper bound. The table below reports the performance gains with respect to the **Exact Match (accuracy)** metric.
+
+| Strategy   | Authors    | Genres  | Materials | Subjects 
+|-----------------|-----------|---------|-----------|----------|
+| ZERO-SHOT BASELINE   |  +3.28%   | +69,28  |  +47.79   |   +6,26%  |
+| MULTI-MODEL    |  -0.17%   | -0.97%  |  -0,85%   |   +1.14%  |
+
+# Folder Structure
+```
+.
+├── adsp_notebook_artLM.ipynb   # Main notebook with code, analysis, and results
+├── model_results/              # Output directory for all results
+│   ├── plots/                  # Generated plots and figures
+│   └── results_tables/         # Quantitative evaluation tables
+├── report/                     # Final project report and documentation
+├── Checkpoints/                # Presentation slides
+└── README.md                   # Project overview, instructions, and documentation
+```
+# Installation
+**Prerequisites**
+- Python 3.10+
+-	GPU with support to bfloat16  (ex: T4, L4, A100 su Colab)
+-	PyTorch with CUDA
+- Hugging Face Account: Access to Qwen2-VL-2B-Instruct.
+
+**Setup**
+1. Open adsp_notebook_artLM.ipynb in Jupyter or Colab.
+2. Install the main libraries:
+```bash
+pip install -U transformers
+!pip install qwen-vl-utils
+!pip install peft
+!pip install accelerate
+!pip install sentencepiece
+!pip install safetensors
+```
+3. In Colab, mount the Google Drive
+
+```bash
+from google.colab import drive
+drive.mount('/content/drive')
+```
+4. Preparing Image Dataset
+```bash
+zip_path = "/content/drive/MyDrive/Dataset/foto.zip" #change the path
+dest_path = "/content/dataset_veloce"
+!unzip -q -o "{zip_path}" -d "{dest_path}"
+
+folder = "/content/dataset_veloce/foto"
+id_to_path = {os.path.splitext(f)[0]: os.path.join(folder, f) for f in os.listdir(folder)}
+```
+5. Upload the model
+```bash
+from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
+
+model_id = "Qwen/Qwen2-VL-2B-Instruct"
+processor = AutoProcessor.from_pretrained(model_id)
+model = Qwen2VLForConditionalGeneration.from_pretrained(
+    model_id,
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+)
+```
+# Getting Started
+## Training
+	1.	Load the CSV files (train.csv and val.csv) and normalize any columns that contain stringified lists.
+	2.	Perform exploratory data analysis on the metadata columns.
+	3.	Run zero-shot evaluation using the Qwen2‑VL model.
+	4.	Fine-tune the selected model with PEFT/LoRA.
+	5.	Evaluate the fine-tuned models using the chosen metrics.
+
+## Inference
+Once a fine-tuned checkpoint is available, the model can be used to predict metadata for new artworks:
+1. Load the base Qwen2‑VL model and attach the corresponding LoRA adapters (authors, materials, genres, or subjects).
+2. Build the image–ID to file–path mapping (`id_to_path`) and prepare a DataFrame with the `images` column.
+3. For each target category, call the appropriate inference utility (e.g., `run_inference_on_category`) to generate predictions.
+4. Optionally, save the outputs to CSV and compute the same metrics used during validation (e.g., Exact Match).
+
+# Limitations
+- Rare labels: Poor performance on sparse subjects due to long-tail distribution
+- Computational cost: High overhead for training/inference limits scalability
+- Multi-label complexity: Challenges with co-occurring attributes
+
+# People
+
+Authors: Simone Andò, Federico Baldi, Roberto Cozzone
+
+Collaboration: LINKS Foundation
+
+License: For academic and research use only
 
