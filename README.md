@@ -183,11 +183,11 @@ Once a fine-tuned checkpoint is available, the model can be used to predict meta
 - Computational cost: High overhead for training/inference limits scalability
 - Multi-label complexity: Challenges with co-occurring attributes
 
-## Research Paper
+# Research Paper
 
 This implementation is described in detail in the following paper:
 
-> **“An End-to-End NLP Pipeline for Topic Detection in App Reviews”**  
+> **“Automated Artwork Metadata Generation using Multimodal LLM”**  
 > *Andò S., Baldi F., Cozzone R.* (2025)
 
 ---
@@ -204,7 +204,7 @@ This implementation is described in detail in the following paper:
 
 ---
 
-## License
+# License
 
 This project is intended **for academic and research use only**.
 
