@@ -145,7 +145,7 @@ Finally, the performance of the best-performing model (1-Img-4Prompt R=16 D=0.05
 - Hugging Face Account: Access to Qwen2-VL-2B-Instruct.
 
 **Setup**
-1. Open adsp_notebook_artLM.ipynb in Jupyter or Colab.
+1. Open ADSP_Notebook_ArtLM.ipynb in Jupyter or Colab.
 2. Install the main libraries:
 ```bash
 !pip install -U transformers
