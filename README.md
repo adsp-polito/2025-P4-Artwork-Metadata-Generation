@@ -84,7 +84,7 @@ The dataset enables realistic evaluation of large-scale cultural heritage metada
 # How to Use
 1. Open adsp_notebook_artLM.ipynb in Jupyter, VSCode or Colab.
 2. Place Dataset_ArtAI.csv in the same folder as the notebook.
-3 Run all cells in order. Results will be saved in model_results/ and displayed in the notebook.
+3. Run all cells in order. Results will be saved in model_results/ and displayed in the notebook.
 
 # Main Results
 The experiments used to validate the best-performing model were conducted using the **Single-Prompt** and **1Img4Prompt** strategies.  
