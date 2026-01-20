@@ -39,9 +39,9 @@ The approach is designed to be **scalable, flexible, and deployable in resource-
 - **Robust Evaluation**
   - Exact Match (Accuracy)
   - Semantic Similarity (cosine similarity with MPNet embeddings)
-  - BLEU and ROUGE-1 scores
+  - BLEU and ROUGE-1
 
-# How it works
+# How it works?
 The framework formulates metadata extraction as a **conditional multimodal generation task**:
 
 **Core Steps:**
@@ -66,13 +66,23 @@ The dataset is constructed from **Wikidata**, an open-source structured knowledg
   - 1,756 validation samples
 - High-resolution artwork images
 - Strongly **imbalanced multi-label distributions**, especially in *Subjects*
-<img width="793" height="202" alt="Screenshot 2026-01-20 alle 09 10 28" src="https://github.com/user-attachments/assets/ca01ab42-010f-4568-931f-fd63ec7742b8" />
+<img width="1252" height="277" alt="Screenshot 2026-01-20 alle 09 10 28" src="https://github.com/user-attachments/assets/ca01ab42-010f-4568-931f-fd63ec7742b8" />
 <img width="1252" height="277" alt="Screenshot 2026-01-20 alle 09 15 07" src="https://github.com/user-attachments/assets/122804ff-81dc-4bb4-88c6-743eca4d1cf7" />
 
 The dataset enables realistic evaluation of large-scale cultural heritage metadata generation.
 
 # Main Results
-The foundation model was selected between BLIP‑2 and Qwen by comparing their zero-shot performance, ultimately choosing Qwen as the base model. The best-performing setup was validated using the Single‑Prompt and 1‑Img‑4‑Prompt strategies, evaluated with the Exact Match metric. Several configurations were explored by varying LoRA rank and dropout, while also applying a learning rate scheduler during training.
+The foundation model was selected between BLIP‑2 and Qwen by comparing their zero-shot performance, ultimately choosing Qwen as the base model. 
+
+| Category   | Exact Match (QWEN) | Exact Match (BLIP) | Similarity Score (QWEN) | Similarity Score (BLIP) | BLEU (QWEN) | BLEU (BLIP) | ROUGE-1 (QWEN) | ROUGE-1 (BLIP) |
+|------------|-------------------:|-------------------:|------------------------:|------------------------:|------------:|------------:|---------------:|---------------:|
+| Authors    | **0.150**          | 0.001              | **0.800**               | 0.684                   | X           | X           | **0.154**      | 0.003          |
+| Subjects   | **0.014**          | 0.000              | 0.717                   | **0.722**               | **0.030**   | 0.014       | **0.193**      | 0.099          |
+| Materials  | **0.218**          | 0.000              | **0.886**               | 0.838                   | **0.210**   | 0.105       | **0.609**      | 0.478          |
+| Genres     | 0.064              | **0.353**          | **0.586**               | 0.549                   | **0.079**   | 0.077       | 0.324          | **0.485**      |
+
+
+The best-performing setup was validated using the Single‑Prompt and 1‑Img‑4‑Prompt strategies, evaluated with the Exact Match metric. Several configurations were explored by varying LoRA rank and dropout, while also applying a learning rate scheduler during training.
 
 The table below reports a comparative analysis of the two prompting strategies for different Rank and Dropout configuration:
 | SINGLE-PROMPT   | Authors   | Genres | Materials | Subjects 
@@ -107,18 +117,21 @@ Finally, the performance of the best-performing model (1-Img-4Prompt R=16 D=0.05
 ```
 .
 ├──Exam/
-│   ├──Notebook.ipynb/             # Main notebook with code, analysis, and results
-│   ├──Tecnical_report.pdf/		   # Final project report and documentation
-│   ├──Checkpoint_Exam.pdf/		   # Final presentation slides
-├── Results/                       # Output directory for all results
-│   ├── Outputs/                   # Generated plots and figures
-│   	├── 1-IMG-4-PROMPT/		   # Results of IMG-4-PROMPT
-│		├── MULTI-MODEL/		   # Results of MULTI-MODEL
-│		├── SINGLE-PROMPT/         # Results of SINGLE-PROMPT
-├── checkpoints/                   # Previous checkpoints presentation
-├── README.md					   # Project overview, instructions, and documentation
-├── LINKS-ArtAI.pdf                # Project presentation Kick off
-└── Requirements.txt			   # libraries
+│   |──ADSP_Notebook_ArtLM.ipynb  													   # Main notebook with code, analysis, and results
+│   ├──Automated Artwork Metadata Generation using Multimodal LLM.pdf				   # Final project report and documentation
+│   ├──Checkpoint_Exam
+├── Checkpoints/																	   # Intermediate Slides
+│   |──Checkpoint_1  													   
+│   ├──Checkpoint_2
+│   ├──Checkpoint_3
+├── Results/                       													   
+│   ├── Outputs/                                 									   
+│   	├── 1-IMG-4-PROMPT/		   													   
+│		├── MULTI-MODEL/		   
+│		├── SINGLE-PROMPT/
+├── Requirements.txt                         										   # Libraries
+└── README.md					  													   # Project overview, instructions, and documentation
+└── LINKS-ArtAI.pdf               											           # Kick off project presentation
 ```
 # Installation
 **Prerequisites**
@@ -131,12 +144,16 @@ Finally, the performance of the best-performing model (1-Img-4Prompt R=16 D=0.05
 1. Open adsp_notebook_artLM.ipynb in Jupyter or Colab.
 2. Install the main libraries:
 ```bash
-pip install -U transformers
+!pip install -U transformers
 !pip install qwen-vl-utils
 !pip install peft
-!pip install accelerate
-!pip install sentencepiece
-!pip install safetensors
+!pip install Pillow
+!pip install tqdm
+!pip install torch
+!pip install pandas
+!pip install numpy
+!pip install matplotlib
+!pip install seaborn
 ```
 3. In Colab, mount the Google Drive
 
@@ -146,7 +163,7 @@ drive.mount('/content/drive')
 ```
 4. Preparing Image Dataset
 ```bash
-zip_path = "/content/drive/MyDrive/Dataset/foto.zip" #change the path
+zip_path = "/content/drive/MyDrive/Dataset/foto.zip"
 dest_path = "/content/dataset_veloce"
 !unzip -q -o "{zip_path}" -d "{dest_path}"
 
@@ -169,7 +186,7 @@ model = Qwen2VLForConditionalGeneration.from_pretrained(
 ## Training
 	1.	Load the CSV files (train.csv and val.csv) and normalize any columns that contain stringified lists.
 	2.	Perform exploratory data analysis on the metadata columns.
-	3.	Run zero-shot evaluation using the Qwen2‑VL model.
+	3.	Run zero-shot evaluation using the Qwen2-VL-2B-Instruct and BLIP2–Flan–T5–XL models.
 	4.	Fine-tune the selected model with PEFT/LoRA.
 	5.	Evaluate the fine-tuned models using the chosen metrics.
 
