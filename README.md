@@ -37,7 +37,7 @@ The approach is designed to be **scalable, flexible, and deployable in resource-
   - Multi-Model upper-bound comparison
 
 - **Robust Evaluation**
-  - Exact Match (EM)
+  - Exact Match (Accuracy)
   - Semantic Similarity (cosine similarity with MPNet embeddings)
   - BLEU and ROUGE-1 scores
 
