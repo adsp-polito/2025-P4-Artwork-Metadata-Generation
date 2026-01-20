@@ -1,6 +1,6 @@
-# Automated Artwork Metadata Generation using Multimodal LLM -ADSP Project
+# Automated Artwork Metadata Generation using MLLM - ADSP Project
 
-This repository contains the implementation of **ARTLM**, an end-to-end framework for **automated artwork metadata generation** using **Multimodal Large Language Models (MLLMs)**.
+This repository contains **ARTLM**, an end-to-end framework for **automated artwork metadata generation** using **Multimodal Large Language Models (MLLMs)**.
 
 The project was developed as part of the **Applied Data Science Project** at **Politecnico di Torino (2025/2026)** and is described in detail in the accompanying research paper.
 
