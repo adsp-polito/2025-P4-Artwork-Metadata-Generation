@@ -183,11 +183,29 @@ Once a fine-tuned checkpoint is available, the model can be used to predict meta
 - Computational cost: High overhead for training/inference limits scalability
 - Multi-label complexity: Challenges with co-occurring attributes
 
-# People
+## Research Paper
 
-Authors: Simone Andò, Federico Baldi, Roberto Cozzone
+This implementation is described in detail in the following paper:
 
-Collaboration: LINKS Foundation
+> **“An End-to-End NLP Pipeline for Topic Detection in App Reviews”**  
+> *Andò S., Baldi F., Cozzone R.* (2025)
 
-License: For academic and research use only
+---
+
+## People
+
+**Authors**  
+- Simone Andò  
+- Federico Baldi  
+- Roberto Cozzone  
+
+**Collaboration**  
+- LINKS Foundation
+
+---
+
+## License
+
+This project is intended **for academic and research use only**.
+
 
