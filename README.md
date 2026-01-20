@@ -107,14 +107,15 @@ Finally, the performance of the best-performing model (1-Img-4Prompt R=16 D=0.05
 ```
 .
 ├──Exam/
-│   ├──adsp_notebook_artLM.ipynb/  # Main notebook with code, analysis, and results
-│   ├──report.pdf/				   # Final project report and documentation
-│   ├──checkpoints/			       # Presentation slides
+│   ├──Notebook.ipynb/             # Main notebook with code, analysis, and results
+│   ├──Tecnical_report.pdf/		   # Final project report and documentation
+│   ├──Checkpoint_Exam.pdf/		   # Final presentation slides
 ├── Results/                       # Output directory for all results
 │   ├── Outputs/                   # Generated plots and figures
 │   	├── 1-IMG-4-PROMPT/		   # Results of IMG-4-PROMPT
 │		├── MULTI-MODEL/		   # Results of MULTI-MODEL
-│		├── SINGLE-PROMPT/         # Results of SINGLE-PROMPT                  
+│		├── SINGLE-PROMPT/         # Results of SINGLE-PROMPT
+├── checkpoints/                   # Previous checkpoints presentation
 ├── README.md					   # Project overview, instructions, and documentation
 ├── LINKS-ArtAI.pdf                # Project presentation Kick off
 └── Requirements.txt			   # libraries
