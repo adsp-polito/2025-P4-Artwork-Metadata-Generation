@@ -117,21 +117,25 @@ Finally, the performance of the best-performing model (1-Img-4Prompt R=16 D=0.05
 ```
 .
 ├──Exam/
-│   |──ADSP_Notebook_ArtLM.ipynb  													   # Main notebook with code, analysis, and results
-│   ├──Automated Artwork Metadata Generation using Multimodal LLM.pdf				   # Final project report and documentation
-│   ├──Checkpoint_Exam
-├── Checkpoints/																	   # Intermediate Slides
+│   |──ADSP_Notebook_ArtLM.ipynb  											# Main notebook with code, analysis, and results
+│   ├──Automated Artwork Metadata Generation using Multimodal LLM.pdf       # Final project report and documentation
+│   ├──Checkpoint_Exam														# Exam presentation
+├── Checkpoints/														    # Intermediate Slides
 │   |──Checkpoint_1  													   
 │   ├──Checkpoint_2
 │   ├──Checkpoint_3
-├── Results/                       													   
+├── Results/ 																# Predictions and Metrics                       													   
 │   ├── Outputs/                                 									   
-│   	├── 1-IMG-4-PROMPT/		   													   
-│		├── MULTI-MODEL/		   
-│		├── SINGLE-PROMPT/
-├── Requirements.txt                         										   # Libraries
-└── README.md					  													   # Project overview, instructions, and documentation
-└── LINKS-ArtAI.pdf               											           # Kick off project presentation
+│   	├── Zero–Shot/
+│           ├── Qwen/
+│           ├── Blip2/	   													   	   													   
+│		├── Fine–Tuning/
+│           ├── Multi Model/
+│           ├── 1–IMG–4–PROMPT/
+│           ├── Single Prompt/			   	   
+├── Requirements.txt                         							    # Libraries
+└── README.md					  										    # Project overview, instructions, and documentation
+└── LINKS-ArtAI.pdf               											# Kick off project presentation
 ```
 # Installation
 **Prerequisites**
