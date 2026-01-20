@@ -71,13 +71,44 @@ The dataset is constructed from **Wikidata**, an open-source structured knowledg
 The dataset enables realistic evaluation of large-scale cultural heritage metadata generation.
 
 # Folder Structure
+```
+.
+├── adsp_notebook_artLM.ipynb   # Main notebook with code, analysis, and results
+├── model_results/              # Output directory for all results
+│   ├── plots/                  # Generated plots and figures
+│   └── results_tables/         # Quantitative evaluation tables
+├── report/                     # Final project report and documentation
+├── Checkpoints/                # Presentation slides
+└── README.md                   # Project overview, instructions, and documentation
+```
+# How to Use
+1. Open adsp_notebook_artLM.ipynb in Jupyter, VSCode or Colab.
+2. Place Dataset_ArtAI.csv in the same folder as the notebook.
+3 Run all cells in order. Results will be saved in model_results/ and displayed in the notebook.
 
+#Main Results
+The experiments used to validate the best-performing model were conducted using the **Single-Prompt** and **1Img4Prompt** strategies.  
+Multiple configurations were evaluated by varying the **LoRA rank** and **dropout values**, while applying a **learning rate scheduler** during training.
 
-- **adsp_notebook_artLM.ipynb:** Main notebook with code, analysis, and results.
-- **model_results/:** Output directory for all results.
-- **report/:** Final project report and documentation.
-- **Checkpoints/:** Presentations slides.
-- **README.md:** Provides an overview of the project, instructions and documentation.
+The table below reports a comparative analysis of the two prompting strategies for different Rank and Dropout configuration:
+| SINGLE-PROMPT   | Authors   | Genres | Materials | Subjects 
+|-----------------|-----------|---------|----------|----------|
+| R = 8,D=0.1     |  **17,26%**   | 75,34%  |  66,57%  |   6,66%  |
+| R = 16,D=0.05   |  17,06%   | **75,57%**  |  **66,86%**  |   **7,00%**  |
 
+| 1IMG-4PROMPT   | Authors    | Genres  | Materials | Subjects 
+|-----------------|-----------|---------|-----------|----------|
+| R = 8,D=0.1     |  17,71%   | 75,80%  |  68,74%   |   **7,92%**  |
+| R = 16,D=0.05   |  **18,45%**   | **76,37%**  |  **69,19%**   |   7,74%  |
 
+In both strategies, the best-performing configuration uses a **LoRA rank of 16** and a **dropout value of 0.05**.  
+For both strategies, the application of a **learning rate scheduler** leads to performance improvements.
+
+The table below reports the best configuration for each strategy using R=16, D=0.05 and the cosine scheduler:
+| Strategy   | Authors    | Genres  | Materials | Subjects 
+|-----------------|-----------|---------|-----------|----------|
+| SINGLE-PROMPT   |  17,43%   | **75,97%**  |  67,43%   |   6,66%  |
+| 1IMG-4PROMPT    |  **18,28%**   | 75,68%  |  **69,59%**   |   **8,14%**  |
+
+Among the evaluated approaches, the 1IMG-4PROMPT strategy yields the best results.
 
